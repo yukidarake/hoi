@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var program = require('commander');
+var pkg = require('../package.json');
+var defaultRuleDir = './rules';
+
+function expand(pattern) {
+    if (fs.statSync(pattern).isDirectory()) {
+        return pattern.replace(/\/?$/, '/**/*.js');
+    }
+    return pattern;
+}
+
+program
+    .version(pkg.version)
+    .description(pkg.description)
+    .option('-r, --rules <path>', 'set rule files path. the default is "' +
+          defaultRuleDir + '"', defaultRuleDir)
+    .usage('[options] <path ...>')
+    .parse(process.argv);
+
+var targetPatterns = program.args.map(function(pattern) {
+    return expand(pattern);
+});
+if (!targetPatterns.length) {
+    program.help();
+}
+
+var rulePattern = expand(program.rules);
+if (!rulePattern) {
+    program.help();
+}
+
+require('../lib').run(rulePattern, targetPatterns);

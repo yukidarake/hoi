@@ -1,0 +1,26 @@
+{
+  "name": "hoi",
+  "version": "0.0.1",
+  "description": "a command to find bugs in JavaScript code with acorn.",
+  "main": "lib/index.js",
+  "bin": "bin/hoi",
+  "scripts": {
+    "test": "mocha --recursive test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yukidarake/hoi"
+  },
+  "author": "Toshiyuki Nakamura",
+  "license": "MIT",
+  "devDependencies": {
+    "sinon": "~1.7.3",
+    "mocha": "~1.13.0",
+    "chai": "~1.8.1"
+  },
+  "dependencies": {
+    "acorn": ">=0.4.2",
+    "glob": "~3.2.6",
+    "commander": "~2.0.0"
+  }
+}
